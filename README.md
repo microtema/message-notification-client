@@ -9,6 +9,7 @@ Spring Boot Application with Selenium Test Framework (Frontend)
 - npm install --save-dev ts-loader source-map-loader
 
 - npm link typescript
+
 - typings install --global --save dt~react
 
 - typings install --global --save dt~react-dom

@@ -32,4 +32,10 @@ module.exports = {
         "react": "React",
         "react-dom": "ReactDOM"
     },
+
+    devServer: {
+        inline: true,
+        port: 8080
+    },
+
 };
