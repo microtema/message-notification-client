@@ -17,7 +17,7 @@ export class MessageEntry extends React.Component<Props, any> {
 
     private markEntry = (event: React.MouseEvent) => {
 
-        alert("markEntry");
+        MessageActions.markMessage(this.props.data);
     };
 
     private deleteEntry = (event: React.MouseEvent) => {

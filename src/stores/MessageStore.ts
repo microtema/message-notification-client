@@ -36,13 +36,46 @@ class MessageStore extends FluxStore<MessageState> {
             } else if (action instanceof MarkMessageEvent) {
                 const {payload} = action;
 
-                this.state.messages = [];
+                const message: Message = payload as Message;
+
+                $.ajax({
+                    url: endpoint.query("/" + message.id),
+                    method: "POST"
+                }).done(function (success: boolean) {
+
+                    console.debug("message with id: " + message.id + " was successfully marked: ", success);
+
+                    message.type = 'READ'; //TODO (mario) server should return the updated entity
+
+                    this.emitChange();
+                }.bind(this)).fail(function (data, s) {
+                    console.debug(data, s);
+                });
 
                 this.emitChange();
             } else if (action instanceof MarkMessagesEvent) {
+
                 const {payload} = action;
 
-                this.state.messages = [];
+                const messages = payload as number[];
+
+                $.ajax({
+                    url: endpoint.query("/" + messages.join(",")),
+                    method: "POST"
+                }).done(function (success: boolean) {
+
+                    console.debug("delete message with id: " + messages + " was successfully: ", success);
+
+                    this.state.messages.filter((entry: Message)=> {
+                        return messages.indexOf(entry.id) != -1;
+                    }).forEach((entry: Message) => {
+                        entry.type = "READ"; //TODO (mario) server should return the updated entity
+                    });
+
+                    this.emitChange();
+                }.bind(this)).fail(function (data, s) {
+                    console.debug(data, s);
+                });
 
                 this.emitChange();
             } else if (action instanceof RemoveMessageEvent) {

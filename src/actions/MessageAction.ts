@@ -28,12 +28,12 @@ export function selectMessages(message: boolean) {
     AppDispatcher.dispatch(new SelectMessagesEvent(message));
 }
 
-export function markMessage(message: any) {
+export function markMessage(message: Message) {
     AppDispatcher.dispatch(new MarkMessageEvent(message));
 }
 
-export function markMessages(messages: any[]) {
-    AppDispatcher.dispatch(new MarkMessageEvent(messages));
+export function markMessages(messages: number[]) {
+    AppDispatcher.dispatch(new MarkMessagesEvent(messages));
 }
 
 export function removeMessage(message: Message) {
