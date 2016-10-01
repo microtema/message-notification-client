@@ -10,9 +10,6 @@ export class RemoveMessageEvent extends TypedEvent<any> {
 export class RemoveMessagesEvent extends TypedEvent<any[]> {
 }
 
-export class SearchMessagesEvent extends TypedEvent<string> {
-}
-
 export class RequestMessagesEvent extends TypedEvent<string> {
 }
 
@@ -30,10 +27,6 @@ export function removeMessage(message: any) {
 
 export function removeMessages(messages: any[]) {
     AppDispatcher.dispatch(new RemoveMessageEvent(messages));
-}
-
-export function searchMessages(searchTerm: string) {
-    AppDispatcher.dispatch(new SearchMessagesEvent(searchTerm));
 }
 
 export function requestMessages() {

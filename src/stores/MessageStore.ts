@@ -2,8 +2,7 @@ import FluxStore from './FluxStore';
 import {Event, AppDispatcher} from '../dispatcher/AppDispatcher';
 import MessageState from '../types/MessageState';
 import {
-    MarkMessageEvent, MarkMessagesEvent, RemoveMessagesEvent, RemoveMessageEvent,
-    SearchMessagesEvent, RequestMessagesEvent
+    MarkMessageEvent, MarkMessagesEvent, RemoveMessagesEvent, RemoveMessageEvent, RequestMessagesEvent
 } from "../actions/MessageAction";
 import * as $ from 'jquery'
 import Message from "../types/Message";
@@ -28,17 +27,11 @@ class MessageStore extends FluxStore<MessageState> {
                 const {payload} = action;
                 this.state.messages = [];
                 this.emitChange();
-            } else if (action instanceof SearchMessagesEvent) {
-                const {payload} = action;
-
-                this.emitChange();
             } else if (action instanceof RequestMessagesEvent) {
                 const {payload} = action;
 
                 $.get('/rest/data.json', function (entries: Message[]) {
-
                     this.state.messages = entries;
-                    console.log('get entries from rest', this.state.messages);
                     this.emitChange();
                 }.bind(this));
             }

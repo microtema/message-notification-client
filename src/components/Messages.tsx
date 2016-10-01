@@ -1,21 +1,40 @@
 import * as React from "react";
 import Message from "../types/Message";
 import {MessageEntry} from "./MessageEntry";
+import * as MessageActions from '../actions/MessageAction';
+import MessagesStore from "../stores/MessageStore";
 
 interface StateProps {
-    checked: boolean
+    checked: boolean,
+    messages: Message[];
 }
 
 interface Props {
-    messages: Message[]
+    filterText: string
 }
 
 export class Messages extends React.Component<Props, StateProps> {
 
     constructor(props: any) {
         super(props);
-        this.state = {checked: false}
+        this.state = {checked: false, messages: []}
     }
+
+    public componentWillMount() {
+        MessagesStore.addChangeListener(this.onChange);
+    }
+
+    public componentDidMount() {
+        MessageActions.requestMessages();
+    }
+
+    public componentWillUnmount() {
+        MessagesStore.removeChangeListener(this.onChange);
+    }
+
+    private onChange = () => {
+        this.setState({messages: MessagesStore.getState().messages, checked: this.state.checked});
+    };
 
     private checkEntries = (event: React.MouseEvent) => {
 
@@ -36,7 +55,13 @@ export class Messages extends React.Component<Props, StateProps> {
 
     render() {
 
-        const { messages} = this.props;
+        const filterText = this.props.filterText.toLowerCase();
+
+        const messages = this.state.messages.filter((message: Message)=> {
+            return message.title.toLowerCase().indexOf(filterText) != -1 ||
+                message.type.toLowerCase().indexOf(filterText) != -1 ||
+                message.description.toLowerCase().indexOf(filterText) != -1
+        });
 
         return (
             <table className="table table-hover message-motification-table">
@@ -58,7 +83,7 @@ export class Messages extends React.Component<Props, StateProps> {
                 </tr>
                 </thead>
                 <tbody>
-                { messages.map((g, index) => <MessageEntry key={ index } index={ index} data={g} />) }
+                { messages.map((message, index) => <MessageEntry key={ index } index={ index} data={message}/>) }
                 </tbody>
             </table>
         );

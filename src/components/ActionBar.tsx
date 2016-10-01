@@ -4,8 +4,10 @@ import * as MessageActions from '../actions/MessageAction'
 interface StateProps {
     countUnreaded: number, active: boolean, searchTerm: string
 }
-
-export class ActionBar extends React.Component<{}, StateProps> {
+interface Props {
+    onSearch: any
+}
+export class ActionBar extends React.Component<Props, StateProps> {
 
     constructor(props: any) {
         super(props);
@@ -16,7 +18,7 @@ export class ActionBar extends React.Component<{}, StateProps> {
 
         this.state.searchTerm = (event.target as HTMLInputElement).value;
 
-        MessageActions.searchMessages(this.state.searchTerm);
+        this.props.onSearch(this.state.searchTerm);
     };
 
     private onSubmit = (event: React.FormEvent)=> {
@@ -25,11 +27,11 @@ export class ActionBar extends React.Component<{}, StateProps> {
         if (!this.state.searchTerm) {
             return;
         }
-        MessageActions.searchMessages(this.state.searchTerm);
+        this.props.onSearch(this.state.searchTerm);
     };
 
 
-    private requestAll() {
+    private requestAll = (event: React.FormEvent) => {
         MessageActions.requestMessages();
     };
 
