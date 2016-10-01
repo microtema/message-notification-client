@@ -12,10 +12,6 @@ export class ActionBar extends React.Component<{}, StateProps> {
         this.state = {countUnreaded: 0, active: false, searchTerm: ''}
     }
 
-    static propTypes: React.ValidationMap<StateProps> = {
-        searchTerm: React.PropTypes.string.isRequired
-    };
-
     private handleChange = (event: React.MouseEvent) => {
 
         this.state.searchTerm = (event.target as HTMLInputElement).value;

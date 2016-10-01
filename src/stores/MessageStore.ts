@@ -5,6 +5,8 @@ import {
     MarkMessageEvent, MarkMessagesEvent, RemoveMessagesEvent, RemoveMessageEvent,
     SearchMessagesEvent, RequestMessagesEvent
 } from "../actions/MessageAction";
+import * as $ from 'jquery'
+import Message from "../types/Message";
 
 class MessageStore extends FluxStore<MessageState> {
     constructor(dispatcher: Flux.Dispatcher<Event>) {
@@ -29,33 +31,25 @@ class MessageStore extends FluxStore<MessageState> {
             } else if (action instanceof SearchMessagesEvent) {
                 const {payload} = action;
 
-                this.state.messages = this.state.messages.filter(m => {
-
-                    for (var p in m) {
-                        if (m[p] === payload) {
-                            return true;
-                        }
-                    }
-
-                    return false;
-                });
-
-                alert(payload);
-
                 this.emitChange();
-            }else if (action instanceof RequestMessagesEvent) {
+            } else if (action instanceof RequestMessagesEvent) {
                 const {payload} = action;
-                this.state.messages = []; //get messages from server than fire event
-                this.emitChange();
+
+                $.get('/rest/data.json', function (entries: Message[]) {
+
+                    this.state.messages = entries;
+                    console.log('get entries from rest', this.state.messages);
+                    this.emitChange();
+                }.bind(this));
             }
         };
         super(dispatcher, onDispatch, () => ({
-            messages: [{}]
+            messages: []
         }));
     }
 
     getState() {
-        return this.state
+        return this.state;
     }
 }
 

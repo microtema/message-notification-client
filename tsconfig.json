@@ -12,6 +12,7 @@
     "./src/components/App.tsx",
     "./src/components/Header.tsx",
     "./src/components/ActionBar.tsx",
+    "./src/components/Messages.tsx",
     "./src/types/MessageState.ts",
     "./src/stores/FluxStore.ts",
     "./src/stores/MessageStore.ts",

@@ -29,6 +29,7 @@ class FluxStore<TState> {
      */
     emitChange() {
         this.changed = true;
+        this.emitter.emit(CHANGE_EVENT);
     }
 
     hasChanged() { return this.changed; }

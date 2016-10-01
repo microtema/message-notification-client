@@ -37,6 +37,5 @@ export function searchMessages(searchTerm: string) {
 }
 
 export function requestMessages() {
-    alert("requestMessages")
     AppDispatcher.dispatch(new RequestMessagesEvent(null));
 }

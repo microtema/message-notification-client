@@ -14,5 +14,9 @@ Spring Boot Application with Selenium Test Framework (Frontend)
 
 - typings install --global --save dt~react-dom
 
+- typings install dt~jquery --global
+
+- typings install dt~moment --global
+
 # Putting it all together
 webpack

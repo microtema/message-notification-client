@@ -1,5 +1,6 @@
+import Message from "./Message";
 interface MessageState {
-    messages: any[];
+    messages: Message[];
 }
 
 export default MessageState;
