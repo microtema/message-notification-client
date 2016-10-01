@@ -1,0 +1,53 @@
+table.message-motification-table {
+    background-color: #fdfdfd;
+}
+
+table.message-motification-table .index {
+    width: 20px;
+}
+
+table.message-motification-table td.description {
+    padding-left: 25px;
+}
+
+table.message-motification-table .dropdown-toggle {
+    padding-right: 10px;
+}
+
+table.message-motification-table .action {
+    width: 30px;
+}
+
+table.message-motification-table img {
+    margin: 5px 10px;
+}
+
+table.message-motification-table p {
+    padding-right: 10px;
+}
+
+table.message-motification-table p .date {
+    color: #c5c5c5;
+}
+
+div.message-motification-container {
+
+    background-color: #808285;
+}
+
+div.message-motification-header {
+    height: 90px;
+    padding: 10px;
+}
+
+div.message-motification-header h6 {
+    color: #ffffff;
+    padding-right: 10px;
+    padding-top: 55px;
+}
+
+.logo {
+    padding-left: 10px;
+    color: #ffffff;
+    font-style: italic;
+}

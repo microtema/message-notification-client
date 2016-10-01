@@ -26,6 +26,8 @@
   },
   "homepage": "https://github.com/sevenfate/e2open-client#readme",
   "dependencies": {
+    "bootstrap": "^3.3.7",
+    "jquery": "^3.1.1",
     "react": "^15.3.2",
     "react-dom": "^15.3.2",
     "webpack-dev-server": "^1.16.1"
@@ -50,6 +52,8 @@
     "react-addons-test-utils": "^15.1.0",
     "source-map-loader": "^0.1.5",
     "ts-loader": "^0.8.2",
-    "webpack": "^1.12.9"
+    "webpack": "^1.12.9",
+    "flux": "^2.0.3",
+    "eventemitter3": "^1.1.1"
   }
 }
