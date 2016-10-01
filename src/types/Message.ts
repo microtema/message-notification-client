@@ -5,7 +5,7 @@ interface Message {
     image: string;
     description: string;
     pubDate: number;
-    checked: boolean;
+    checked?: boolean;
 }
 
 export default Message;

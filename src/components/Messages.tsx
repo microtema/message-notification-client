@@ -37,9 +37,9 @@ export class Messages extends React.Component<Props, StateProps> {
     };
 
     private checkEntries = (event: React.MouseEvent) => {
-
-        alert("checkEntries");
         this.state.checked = !this.state.checked;
+
+        MessageActions.selectMessages(this.state.checked);
     };
 
     private markCheckedEntries = (event: React.MouseEvent) => {
@@ -49,7 +49,19 @@ export class Messages extends React.Component<Props, StateProps> {
 
     private deleteCheckedEntries = (event: React.MouseEvent) => {
 
-        alert("deleteCheckedEntries");
+        const checkedEntries = this.state.messages.filter((message: Message) =>
+            message.checked
+        );
+
+        console.debug("checkedEntries", checkedEntries);
+
+        const checkedIds = checkedEntries.map((message: Message) =>
+            message.id
+        );
+
+        console.debug("checkedIDs", checkedIds);
+
+        MessageActions.removeMessages(checkedIds);
     };
 
 

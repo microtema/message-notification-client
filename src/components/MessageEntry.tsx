@@ -1,6 +1,7 @@
 import * as React from "react";
 import Message from "../types/Message";
 import * as moment from 'moment'
+import * as MessageActions from '../actions/MessageAction';
 
 interface Props {
     data: Message,
@@ -11,7 +12,7 @@ export class MessageEntry extends React.Component<Props, any> {
 
     private checkEntry = (event: React.MouseEvent) => {
 
-        alert("checkEntry");
+        MessageActions.selectMessage(this.props.data);
     };
 
     private markEntry = (event: React.MouseEvent) => {
@@ -21,7 +22,7 @@ export class MessageEntry extends React.Component<Props, any> {
 
     private deleteEntry = (event: React.MouseEvent) => {
 
-        alert("deleteEntry");
+        MessageActions.removeMessage(this.props.data);
     };
 
     render() {
