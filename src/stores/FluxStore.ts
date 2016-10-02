@@ -1,8 +1,10 @@
-import { EventEmitter } from 'events';
-import { Event } from '../dispatcher/AppDispatcher';
+import {EventEmitter} from 'events';
+import {Event} from '../dispatcher/AppDispatcher';
 import * as Flux from "flux";
+import {RequestUnreadMessagesEvent} from "../actions/MessageAction";
 
 const CHANGE_EVENT = 'change';
+const UPDATE_EVENT = 'update';
 
 class FluxStore<TState> {
     private changed: boolean;
@@ -30,16 +32,39 @@ class FluxStore<TState> {
     emitChange() {
         this.changed = true;
         this.emitter.emit(CHANGE_EVENT);
+
+        setTimeout(()=> {
+            this.dispatchUpdate();
+        }, 300);
     }
 
-    hasChanged() { return this.changed; }
+    dispatchUpdate() {
+        this.dispatcher.dispatch(new RequestUnreadMessagesEvent(null));
+    }
+
+    emitUpdate(data: any) {
+        this.changed = true;
+        this.emitter.emit(UPDATE_EVENT, data);
+    }
+
+    hasChanged() {
+        return this.changed;
+    }
 
     addChangeListener(callback: () => void) {
         this.emitter.on(CHANGE_EVENT, callback);
     }
 
+    addUpdateListener(callback: (count: number) => void) {
+        this.emitter.on(UPDATE_EVENT, callback);
+    }
+
     removeChangeListener(callback: () => void) {
         this.emitter.removeListener(CHANGE_EVENT, callback);
+    }
+
+    removeUpdateListener(callback: (count: number) => void) {
+        this.emitter.removeListener(UPDATE_EVENT, callback);
     }
 
     protected cleanState() {

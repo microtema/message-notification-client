@@ -24,6 +24,17 @@ export class Endpoint {
             return this.env + "/rest/message/type/" + type;
         }
     }
+
+    sse() {
+
+        if (this.env === 'dev') {
+            return "/see";
+        } else if (this.env === 'prod') {
+            return "/sse";
+        } else {
+            return this.env + "/sse";
+        }
+    }
 }
 
 export default Endpoint;

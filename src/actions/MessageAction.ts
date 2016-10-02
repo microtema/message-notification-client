@@ -4,10 +4,8 @@ import Message from "../types/Message";
 
 export class SelectMessageEvent extends TypedEvent<Message> {
 }
-
 export class SelectMessagesEvent extends TypedEvent<any> {
 }
-
 export class MarkMessageEvent extends TypedEvent<any> {
 }
 export class MarkMessagesEvent extends TypedEvent<any[]> {
@@ -16,8 +14,9 @@ export class RemoveMessageEvent extends TypedEvent<any> {
 }
 export class RemoveMessagesEvent extends TypedEvent<any[]> {
 }
-
 export class RequestMessagesEvent extends TypedEvent<string> {
+}
+export class RequestUnreadMessagesEvent extends TypedEvent<any> {
 }
 
 export function selectMessage(message: Message) {
@@ -45,5 +44,9 @@ export function removeMessages(messages: number[]) {
 }
 
 export function requestMessages() {
-    AppDispatcher.dispatch(new RequestMessagesEvent(null));
+   AppDispatcher.dispatch(new RequestMessagesEvent(null));
+}
+
+export function requestUnreadMessages() {
+   AppDispatcher.dispatch(new RequestUnreadMessagesEvent(null));
 }

@@ -2,7 +2,6 @@ import * as React from "react";
 import {Header} from "./Header";
 import {ActionBar} from "./ActionBar";
 import {Messages} from "./Messages";
-
 interface StateProps {
     filterText: string
 }

@@ -1,5 +1,6 @@
 import * as React from "react";
 import * as MessageActions from '../actions/MessageAction'
+import MessagesStore from "../stores/MessageStore";
 
 interface StateProps {
     countUnreaded: number, active: boolean, searchTerm: string
@@ -14,10 +15,25 @@ export class ActionBar extends React.Component<Props, StateProps> {
         this.state = {countUnreaded: 0, active: false, searchTerm: ''}
     }
 
+    public componentWillMount() {
+        MessagesStore.addUpdateListener(this.onChange);
+    }
+
+    public componentDidMount() {
+        MessageActions.requestUnreadMessages();
+    }
+
+    public componentWillUnmount() {
+        MessagesStore.removeUpdateListener(this.onChange);
+    }
+
+    private onChange = (count: number) => {
+        this.setState({countUnreaded: count, active: count > 0, searchTerm: this.state.searchTerm});
+    };
+
     private handleChange = (event: React.MouseEvent) => {
 
         this.state.searchTerm = (event.target as HTMLInputElement).value;
-
         this.props.onSearch(this.state.searchTerm);
     };
 
@@ -27,6 +43,7 @@ export class ActionBar extends React.Component<Props, StateProps> {
         if (!this.state.searchTerm) {
             return;
         }
+
         this.props.onSearch(this.state.searchTerm);
     };
 

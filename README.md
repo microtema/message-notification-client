@@ -18,5 +18,11 @@ Spring Boot Application with Selenium Test Framework (Frontend)
 
 - typings install dt~moment --global
 
+- npm install react-native-eventsource --save
+ 
+- npm link react-native-eventsource
+
 # Putting it all together
-webpack
+- webpack
+or 
+- npm start

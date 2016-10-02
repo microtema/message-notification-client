@@ -27,11 +27,16 @@
   "homepage": "https://github.com/sevenfate/e2open-client#readme",
   "dependencies": {
     "bootstrap": "^3.3.7",
+    "eventsource": "^0.2.1",
     "jquery": "^3.1.1",
     "moment": "^2.15.1",
     "react": "^15.3.2",
     "react-dom": "^15.3.2",
-    "webpack-dev-server": "^1.16.1"
+    "react-native": "^0.34.1",
+    "react-native-eventsource": "0.0.1",
+    "sse": "0.0.6",
+    "webpack-dev-server": "^1.16.1",
+    "window": "^1.0.0"
   },
   "devDependencies": {
     "babel-core": "^6.3.2",

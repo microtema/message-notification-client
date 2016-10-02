@@ -12,6 +12,7 @@ table.message-motification-table td.description {
 
 table.message-motification-table .dropdown-toggle {
     padding-right: 10px;
+    width: 60px;
 }
 
 table.message-motification-table .action {

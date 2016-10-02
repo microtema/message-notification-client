@@ -3,11 +3,14 @@ import {Event, AppDispatcher} from '../dispatcher/AppDispatcher';
 import MessageState from '../types/MessageState';
 import {
     MarkMessageEvent, MarkMessagesEvent, RemoveMessagesEvent, RemoveMessageEvent, RequestMessagesEvent,
-    SelectMessageEvent, SelectMessagesEvent
+    SelectMessageEvent, SelectMessagesEvent, RequestUnreadMessagesEvent
 } from "../actions/MessageAction";
 import * as $ from 'jquery'
 import Message from "../types/Message";
 import {Endpoint} from "../endpoint/Endpoint"
+import * as MessageActions from '../actions/MessageAction'
+
+declare var SsEventSource: any;
 
 class MessageStore extends FluxStore<MessageState> {
 
@@ -15,6 +18,8 @@ class MessageStore extends FluxStore<MessageState> {
 
         //const endpoint = new Endpoint('dev');
         const endpoint = new Endpoint('http://localhost:8000');
+
+        const sse = new SsEventSource(endpoint.sse(), MessageActions.requestUnreadMessages);
 
         const onDispatch = (action: Event) => {
 
@@ -42,7 +47,6 @@ class MessageStore extends FluxStore<MessageState> {
                     url: endpoint.query("/" + message.id),
                     method: "POST"
                 }).done(function (success: boolean) {
-
                     console.debug("message with id: " + message.id + " was successfully marked: ", success);
 
                     message.type = 'READ'; //TODO (mario) server should return the updated entity
@@ -59,11 +63,14 @@ class MessageStore extends FluxStore<MessageState> {
 
                 const messages = payload as number[];
 
+                if(messages.length == 0){
+                    return;
+                }
+
                 $.ajax({
                     url: endpoint.query("/" + messages.join(",")),
                     method: "POST"
                 }).done(function (success: boolean) {
-
                     console.debug("delete message with id: " + messages + " was successfully: ", success);
 
                     this.state.messages.filter((entry: Message)=> {
@@ -87,8 +94,8 @@ class MessageStore extends FluxStore<MessageState> {
                     url: endpoint.query("/" + message.id),
                     method: "DELETE"
                 }).done(function (success: boolean) {
-
                     console.debug("delete message with id: " + message.id + " was successfully: ", success);
+
                     this.state.messages = this.state.messages.filter((entry: Message)=> {
                         return entry.id !== message.id
                     });
@@ -103,11 +110,14 @@ class MessageStore extends FluxStore<MessageState> {
 
                 const {payload} = action;
 
+                if(payload.length == 0){
+                    return;
+                }
+
                 $.ajax({
                     url: endpoint.query("/" + payload.join(",")),
                     method: "DELETE"
                 }).done(function (success: boolean) {
-
                     console.debug("delete message with id: " + payload + " was successfully: ", success);
 
                     this.state.messages = this.state.messages.filter((entry: Message)=> {
@@ -126,10 +136,22 @@ class MessageStore extends FluxStore<MessageState> {
                 $.ajax({
                     url: endpoint.query(),
                 }).done(function (entries: Message[]) {
-
                     console.debug("got payload from server", entries);
+
                     this.state.messages = entries;
                     this.emitChange();
+                }.bind(this)).fail(function (data, s) {
+                    console.debug(data, s);
+                });
+            } else if (action instanceof RequestUnreadMessagesEvent) {
+                const {payload} = action;
+
+                $.ajax({
+                    url: endpoint.type("UNREAD"),
+                }).done(function (entries: Message[]) {
+                    console.debug("got payload from server", entries.length);
+
+                    this.emitUpdate(entries.length);
                 }.bind(this)).fail(function (data, s) {
                     console.debug(data, s);
                 });
