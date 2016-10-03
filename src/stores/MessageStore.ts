@@ -46,10 +46,10 @@ class MessageStore extends FluxStore<MessageState> {
                 $.ajax({
                     url: endpoint.query("/" + message.id),
                     method: "POST"
-                }).done(function (success: boolean) {
-                    console.debug("message with id: " + message.id + " was successfully marked: ", success);
+                }).done(function (messageType: string) {
+                    console.debug("message with id: " + message.id + " was successfully marked: ", messageType);
 
-                    message.type = 'READ'; //TODO (mario) server should return the updated entity
+                    message.type = messageType;
 
                     this.emitChange();
                 }.bind(this)).fail(function (data, s) {
@@ -70,13 +70,12 @@ class MessageStore extends FluxStore<MessageState> {
                 $.ajax({
                     url: endpoint.query("/" + messages.join(",")),
                     method: "POST"
-                }).done(function (success: boolean) {
-                    console.debug("delete message with id: " + messages + " was successfully: ", success);
-
+                }).done(function (messageType: string) {
+                    console.debug("delete message with id: " + messages + " was successfully: ", messageType);
                     this.state.messages.filter((entry: Message)=> {
                         return messages.indexOf(entry.id) != -1;
                     }).forEach((entry: Message) => {
-                        entry.type = "READ"; //TODO (mario) server should return the updated entity
+                        entry.type = messageType;
                     });
 
                     this.emitChange();
