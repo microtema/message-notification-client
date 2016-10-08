@@ -15,4 +15,4 @@ or
 
 # Package all together
 
-> grunt install
+> npm run build

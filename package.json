@@ -6,7 +6,8 @@
   "scripts": {
     "test": "karma start",
     "test-multi": "karma start --single-run=false",
-    "start": "webpack-dev-server --hot"
+    "start": "webpack-dev-server --hot",
+    "build": "webpack && grunt install"
   },
   "repository": {
     "type": "git",
