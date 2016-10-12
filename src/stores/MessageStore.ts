@@ -16,8 +16,8 @@ class MessageStore extends FluxStore<MessageState> {
 
     constructor(dispatcher: Flux.Dispatcher<Event>) {
 
-        //const endpoint = new Endpoint('dev');
-        const endpoint = new Endpoint('http://localhost:8000');
+        const env = 'prod';// |'dev' | 'prod' | http://localhost:8000'
+        const endpoint = new Endpoint(env);
 
         const sse = new SsEventSource(endpoint.sse(), MessageActions.requestUnreadMessages);
 
@@ -63,7 +63,7 @@ class MessageStore extends FluxStore<MessageState> {
 
                 const messages = payload as number[];
 
-                if(messages.length == 0){
+                if (messages.length == 0) {
                     return;
                 }
 
@@ -109,7 +109,7 @@ class MessageStore extends FluxStore<MessageState> {
 
                 const {payload} = action;
 
-                if(payload.length == 0){
+                if (payload.length == 0) {
                     return;
                 }
 
