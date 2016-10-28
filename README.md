@@ -1,4 +1,4 @@
-# e2open-client
+# message-notification-client
 Spring Boot Application with Selenium Test Framework (Frontend)
 
 # Install our dependencies
