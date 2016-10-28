@@ -1,5 +1,5 @@
 {
-  "name": "e2open-client",
+  "name": "message-notification-client",
   "version": "0.0.1-SNAPSHOT",
   "description": "Notification Center Application",
   "main": ".dist/bundle.js",
@@ -11,7 +11,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/sevenfate/e2open-client.git"
+    "url": "git+https://github.com/sevenfate/message-notification-client.git"
   },
   "keywords": [
     "Portal",
@@ -24,9 +24,9 @@
   "author": "Mario Tema",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/sevenfate/e2open-client/issues"
+    "url": "https://github.com/sevenfate/message-notification-client/issues"
   },
-  "homepage": "https://github.com/sevenfate/e2open-client#readme",
+  "homepage": "https://github.com/sevenfate/message-notification-client#readme",
   "dependencies": {
     "bootstrap": "^3.3.7",
     "eventemitter3": "^1.1.1",
