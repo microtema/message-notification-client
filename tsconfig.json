@@ -1,0 +1,23 @@
+{
+  "compilerOptions": {
+    "outDir": "./dist/",
+    "sourceMap": true,
+    "noImplicitAny": true,
+    "module": "commonjs",
+    "target": "es5",
+    "jsx": "react"
+  },
+  "files": [
+    "./typings/index.d.ts",
+    "./src/components/App.tsx",
+    "./src/components/Header.tsx",
+    "./src/components/ActionBar.tsx",
+    "./src/components/Messages.tsx",
+    "./src/types/MessageState.ts",
+    "./src/stores/FluxStore.ts",
+    "./src/stores/MessageStore.ts",
+    "./src/dispatcher/AppDispatcher.ts",
+    "./src/actions/MessageAction.ts",
+    "./src/index.tsx"
+  ]
+}
