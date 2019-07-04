@@ -7,7 +7,9 @@
     "test": "karma start",
     "test-multi": "karma start --single-run=false",
     "start": "webpack-dev-server --hot",
-    "build": "webpack && grunt install"
+    "build": "webpack && grunt install",
+    "snyk-protect": "snyk protect",
+    "prepublish": "npm run snyk-protect"
   },
   "repository": {
     "type": "git",
@@ -35,7 +37,8 @@
     "moment": "^2.15.1",
     "react": "^15.3.2",
     "react-dom": "^15.3.2",
-    "react-native": "^0.34.1"
+    "react-native": "^0.34.1",
+    "snyk": "^1.189.0"
   },
   "devDependencies": {
     "babel-core": "^6.3.2",
@@ -66,5 +69,6 @@
     "typescript": "^2.0.3",
     "webpack": "^1.12.9",
     "webpack-dev-server": "^1.16.2"
-  }
+  },
+  "snyk": true
 }
